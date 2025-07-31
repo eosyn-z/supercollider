@@ -1,0 +1,301 @@
+# Smart-Shred Supercollider Implementation Prompts
+
+## Prompt 1: Smart-Shred Core Engine
+
+**PROGRESS TRACKING REQUIREMENTS:**
+- Follow the todo list exactly in order
+- Mark completion with: [COMPLETE: {todo_item}]
+- Save progress after each completed item
+- Delete the entire todo list when all items are complete
+- If you encounter errors, mark as [ERROR: {todo_item}: {description}]
+
+**TODO LIST:**
+1. Create AtomType interface with type, confidence, estimatedComplexity
+2. Create PromptShred interface with atomType, content, estimatedTokens, dependencies
+3. Create ShredResult interface with strategy, shreds, totalEstimatedCost
+4. Implement detectAtomicTaskTypes() method with ATOM_TYPE_PATTERNS
+5. Implement smartShred() decision tree (atom_types vs token_chunks)
+6. Test detection with sample prompts containing multiple task types
+
+**Task**: Implement core smart-shred engine that analyzes prompts and chooses optimal shredding strategy.
+
+**File**: `server/core/utils/smartShredder.ts`
+```typescript
+interface AtomType {
+  type: 'RESEARCH' | 'ANALYSIS' | 'CREATION' | 'VALIDATION' | 'PLANNING' | 'OPTIMIZATION' | 'DOCUMENTATION' | 'INTEGRATION';
+  confidence: number;
+  estimatedComplexity: number;
+}
+
+interface PromptShred {
+  id: string;
+  atomType: string;
+  content: string;
+  estimatedTokens: number;
+  dependencies: string[];
+  batchable: boolean;
+  agentCapabilities: string[];
+}
+
+interface ShredResult {
+  strategy: 'atom_types' | 'token_chunks';
+  shreds: PromptShred[];
+  totalEstimatedCost: number;
+  estimatedDuration: number;
+  batchGroups: BatchGroup[];
+}
+
+class SmartShredder {
+  async smartShred(userPrompt: string, targetTokenSize: number): Promise<ShredResult>;
+  private detectAtomicTaskTypes(prompt: string): AtomType[];
+  private shredByAtomTypes(prompt: string, atomTypes: AtomType[], targetTokenSize: number): Promise<ShredResult>;
+  private shredByTokenChunks(prompt: string, targetTokenSize: number): Promise<ShredResult>;
+}
+```
+
+---
+
+## Prompt 2: Token Control Interface
+
+**PROGRESS TRACKING REQUIREMENTS:**
+- Follow the todo list exactly in order
+- Mark completion with: [COMPLETE: {todo_item}]
+- Save progress after each completed item
+- Delete the entire todo list when all items are complete
+- If you encounter errors, mark as [ERROR: {todo_item}: {description}]
+
+**TODO LIST:**
+1. Create TokenControlInterface with targetTokenSize, shredStrategy, previewMode
+2. Create ShredPreview interface with title, contentPreview, estimatedCost
+3. Implement TokenSlider React component with 100-4000 range
+4. Create LivePreview component showing chunks and cost
+5. Add real-time cost calculation on token size change
+6. Create ShredCard component for individual shred display
+
+**Task**: User-facing interface for controlling token size with live preview.
+
+**File**: `client/components/ShredControl.tsx`
+```typescript
+interface TokenControlInterface {
+  userPrompt: string;
+  targetTokenSize: number;
+  shredStrategy: 'atom_types' | 'token_chunks' | 'hybrid';
+  previewMode: boolean;
+  estimatedCost: number;
+  estimatedDuration: number;
+}
+
+interface ShredPreview {
+  shredId: string;
+  title: string;
+  atomType: string;
+  contentPreview: string;
+  estimatedTokens: number;
+  estimatedCost: number;
+  estimatedDuration: string;
+  dependencies: string[];
+  batchGroup?: string;
+}
+
+const ShredControl: React.FC<{
+  onTokenSizeChange: (size: number) => void;
+  onPreviewUpdate: (preview: ShredPreview[]) => void;
+}>;
+```
+
+---
+
+## Prompt 3: Workflow Queue System
+
+**PROGRESS TRACKING REQUIREMENTS:**
+- Follow the todo list exactly in order
+- Mark completion with: [COMPLETE: {todo_item}]
+- Save progress after each completed item
+- Delete the entire todo list when all items are complete
+- If you encounter errors, mark as [ERROR: {todo_item}: {description}]
+
+**TODO LIST:**
+1. Create WorkflowQueue interface with status, workflowType, decomposedTasks
+2. Create ApprovalCriteria interface with tokenLimit, complexityThreshold, userTier
+3. Implement QueueManager.submitWorkflow() method
+4. Add approveWorkflow() and rejectWorkflow() methods
+5. Create auto-approval logic based on user tier and complexity
+6. Test queue operations with different workflow types
+
+**Task**: Workflow queue management with approval/rejection system.
+
+**File**: `server/core/queue/queueManager.ts`
+```typescript
+interface WorkflowQueue {
+  id: string;
+  userId: string;
+  status: 'pending_approval' | 'approved' | 'rejected' | 'processing' | 'completed' | 'failed';
+  workflowType: 'video_generation' | 'js_code_creation' | 'document_analysis' | 'custom';
+  originalPrompt: string;
+  decomposedTasks: PromptShred[];
+  estimatedTokens: number;
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  createdAt: Date;
+  approvedAt?: Date;
+  rejectedReason?: string;
+}
+
+interface ApprovalCriteria {
+  tokenLimit: number;
+  complexityThreshold: number;
+  costEstimate: number;
+  userTier: 'free' | 'pro' | 'enterprise';
+  requiresHumanReview: boolean;
+}
+
+class QueueManager {
+  async submitWorkflow(prompt: string, userId: string, workflowType: string): Promise<string>;
+  async approveWorkflow(workflowId: string, approverId: string): Promise<void>;
+  async rejectWorkflow(workflowId: string, reason: string): Promise<void>;
+}
+```
+
+---
+
+## Prompt 4: Batch Optimization Engine
+
+**PROGRESS TRACKING REQUIREMENTS:**
+- Follow the todo list exactly in order
+- Mark completion with: [COMPLETE: {todo_item}]
+- Save progress after each completed item
+- Delete the entire todo list when all items are complete
+- If you encounter errors, mark as [ERROR: {todo_item}: {description}]
+
+**TODO LIST:**
+1. Create BatchGroup interface with groupId, tasks, canExecuteInParallel
+2. Implement BatchOptimizer.identifyBatchGroups() method
+3. Add grouping rules: same agent type, no dependencies, token limits
+4. Create context sharing optimization for similar tasks
+5. Add timeout alignment for execution time estimates
+6. Test batching with various shred combinations
+
+**Task**: Optimize shreds into efficient batch groups for parallel execution.
+
+**File**: `server/core/batch/batchOptimizer.ts`
+```typescript
+interface BatchGroup {
+  groupId: string;
+  workflowType: string;
+  tasks: PromptShred[];
+  canExecuteInParallel: boolean;
+  sharedContext: string;
+  estimatedExecutionTime: number;
+  requiredAgentCapabilities: string[];
+}
+
+class BatchOptimizer {
+  identifyBatchGroups(shreds: PromptShred[]): BatchGroup[];
+  private canBatchTogether(shred1: PromptShred, shred2: PromptShred): boolean;
+  private calculateSharedContext(shreds: PromptShred[]): string;
+  private estimateGroupExecutionTime(group: BatchGroup): number;
+}
+```
+
+---
+
+## Prompt 5: Shred Execution Engine
+
+**PROGRESS TRACKING REQUIREMENTS:**
+- Follow the todo list exactly in order
+- Mark completion with: [COMPLETE: {todo_item}]
+- Save progress after each completed item
+- Delete the entire todo list when all items are complete
+- If you encounter errors, mark as [ERROR: {todo_item}: {description}]
+
+**TODO LIST:**
+1. Create ShredExecutor class with executeBatch() method
+2. Implement progress tracking with [PROGRESS:{shredId}:{percentage}] markers
+3. Add error handling with [ISSUE:{shredId}:{description}] markers
+4. Create result assembly logic to combine shred outputs
+5. Add dependency resolution for sequential shred execution
+6. Test execution with sample batch groups
+
+**Task**: Execute shred batches with progress tracking and result assembly.
+
+**File**: `server/core/execution/shredExecutor.ts`
+```typescript
+interface ShredResult {
+  shredId: string;
+  status: 'completed' | 'failed' | 'timeout';
+  output: any;
+  executionTime: number;
+  tokensUsed: number;
+  error?: string;
+}
+
+interface BatchExecutionResult {
+  batchId: string;
+  results: ShredResult[];
+  totalExecutionTime: number;
+  successRate: number;
+  assembledOutput: any;
+}
+
+class ShredExecutor {
+  async executeBatch(batchGroup: BatchGroup): Promise<BatchExecutionResult>;
+  private async executeShred(shred: PromptShred): Promise<ShredResult>;
+  private assembleResults(results: ShredResult[], workflowType: string): any;
+  private trackProgress(shredId: string, percentage: number): void;
+}
+```
+
+---
+
+## Prompt 6: Smart-Shred UI Integration
+
+**PROGRESS TRACKING REQUIREMENTS:**
+- Follow the todo list exactly in order
+- Mark completion with: [COMPLETE: {todo_item}]
+- Save progress after each completed item
+- Delete the entire todo list when all items are complete
+- If you encounter errors, mark as [ERROR: {todo_item}: {description}]
+
+**TODO LIST:**
+1. Create SmartShredInterface main component
+2. Integrate TokenSlider with real-time shred preview
+3. Add ShredPreviewGrid showing all generated shreds
+4. Implement cost calculation and display
+5. Add submit button with approval workflow integration
+6. Create progress tracking UI for executing shreds
+
+**Task**: Complete UI integration for smart-shred workflow.
+
+**File**: `client/components/SmartShredInterface.tsx`
+```typescript
+interface SmartShredInterfaceProps {
+  onSubmitWorkflow: (shreds: PromptShred[], tokenSize: number) => Promise<string>;
+  onTokenSizeChange: (size: number) => void;
+  userTier: 'free' | 'pro' | 'enterprise';
+}
+
+const SmartShredInterface: React.FC<SmartShredInterfaceProps> = ({
+  onSubmitWorkflow,
+  onTokenSizeChange,
+  userTier
+}) => {
+  const [tokenSize, setTokenSize] = useState(1000);
+  const [shredPreview, setShredPreview] = useState<ShredPreview[]>([]);
+  const [totalCost, setTotalCost] = useState(0);
+
+  return (
+    <div className="smart-shred-interface">
+      <TokenSlider 
+        value={tokenSize}
+        onChange={handleTokenChange}
+        min={100}
+        max={4000}
+      />
+      <ShredPreviewGrid shreds={shredPreview} />
+      <CostDisplay totalCost={totalCost} userTier={userTier} />
+      <SubmitButton onSubmit={handleSubmit} />
+    </div>
+  );
+};
+```
+
+Complete each item sequentially. Mark progress after each step.
