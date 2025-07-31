@@ -15,6 +15,9 @@ import fileRoutes from './routes/fileRoutes';
 // Import service registry
 import { serviceRegistry } from './services/ServiceRegistry';
 
+// Import public key service
+import { publicKeyService } from './services/PublicKeyService';
+
 // Load environment variables
 dotenv.config();
 

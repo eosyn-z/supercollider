@@ -13,7 +13,9 @@
       "Bash(cmd /c:*)",
       "Bash(npm start)",
       "Bash(npm test:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(npm run lint)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

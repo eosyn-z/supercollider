@@ -9,6 +9,7 @@ import { SystemService } from './SystemService';
 import { FileWorkflowIntegration } from './FileWorkflowIntegration';
 import { FileManager } from '../../storage/fileManager';
 import { FileProcessor } from '../../storage/fileProcessor';
+import { publicKeyService } from './PublicKeyService';
 
 class ServiceRegistry {
   private static instance: ServiceRegistry;
@@ -130,6 +131,10 @@ class ServiceRegistry {
     this.fileManager;
     this.fileProcessor;
     this.fileWorkflowIntegration;
+    
+    // Initialize public key service
+    const publicKeySummary = publicKeyService.getSummary();
+    console.log(`✅ Loaded ${publicKeySummary.total} public API keys (${publicKeySummary.no_auth} no-auth, ${publicKeySummary.demo_keys} demo)`);
     
     console.log('✅ All services initialized');
   }

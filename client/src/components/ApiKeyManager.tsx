@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Agent } from '../types';
+import ApiKeyModal from './ApiKeyModal';
 
 interface ApiKey {
   id: string;
   name: string;
+  service: string;
   key: string;
   agentId: string;
   isActive: boolean;
+  isValid?: boolean;
   createdAt: Date;
   lastUsed?: Date;
+  isPublic?: boolean; // For auto-populated public keys
+  metadata?: {
+    description?: string;
+    rate_limit?: string;
+    free_tier?: boolean;
+    task_tags?: string[];
+  };
 }
 
 interface ApiKeyManagerProps {
@@ -27,8 +37,10 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({
   className = ''
 }) => {
   const [keys, setKeys] = useState<ApiKey[]>([]);
+  const [showApiModal, setShowApiModal] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingKey, setEditingKey] = useState<ApiKey | null>(null);
+  const [publicApiList, setPublicApiList] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     name: '',
     key: '',
@@ -48,10 +60,91 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({
     }
   }, []);
 
+  // Load public API list
+  useEffect(() => {
+    const loadPublicApiList = async () => {
+      try {
+        // Convert the file structure to match our modal interface
+        const response = await fetch('/TODO_CLAUDE/publickeylist.json');
+        const publicKeys = await response.json();
+        
+        const formattedList = publicKeys.map((api: any) => ({
+          name: api.service,
+          service: api.service,
+          description: api.notes,
+          requires_key: api.key !== 'public' && api.key !== 'DEMO_KEY',
+          free_tier: true, // Assume all public APIs are free tier
+          key: api.key === 'public' ? '' : api.key,
+          task_tags: api.task_tags || [],
+          rate_limit: api.rate_limit,
+          notes: api.notes
+        }));
+        
+        setPublicApiList(formattedList);
+        
+        // Auto-populate keys that don't require user input
+        const autoKeys = formattedList
+          .filter((api: any) => !api.requires_key || api.key)
+          .map((api: any) => ({
+            id: `auto-${api.service.toLowerCase().replace(/\s+/g, '-')}`,
+            name: api.service,
+            service: api.service,
+            key: api.key || 'public',
+            agentId: '', // Will be assigned later
+            isActive: true,
+            isValid: true,
+            isPublic: true,
+            createdAt: new Date(),
+            metadata: {
+              description: api.description,
+              rate_limit: api.rate_limit,
+              free_tier: api.free_tier,
+              task_tags: api.task_tags
+            }
+          }));
+        
+        // Only add auto keys that don't already exist
+        const existingServices = keys.map(k => k.service);
+        const newAutoKeys = autoKeys.filter((ak: ApiKey) => !existingServices.includes(ak.service));
+        
+        if (newAutoKeys.length > 0) {
+          setKeys(prev => [...prev, ...newAutoKeys]);
+        }
+        
+      } catch (error) {
+        console.error('Failed to load public API list:', error);
+      }
+    };
+    
+    loadPublicApiList();
+  }, []);
+
   // Save keys to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('supercollider_api_keys', JSON.stringify(keys));
   }, [keys]);
+
+  const handleApiModalSave = (data: { api: any; key: string }) => {
+    const newKey: ApiKey = {
+      id: `key-${Date.now()}`,
+      name: data.api.name || data.api.service,
+      service: data.api.service || data.api.name,
+      key: data.key,
+      agentId: '', // Will be assigned later
+      isActive: true,
+      isValid: false, // Will be validated
+      createdAt: new Date(),
+      metadata: {
+        description: data.api.description || data.api.notes,
+        rate_limit: data.api.rate_limit,
+        free_tier: data.api.free_tier,
+        task_tags: data.api.task_tags
+      }
+    };
+
+    setKeys([...keys, newKey]);
+    onKeyAdded(newKey);
+  };
 
   const handleAddKey = () => {
     if (!formData.name || !formData.key || !formData.agentId) {
@@ -62,9 +155,11 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({
     const newKey: ApiKey = {
       id: `key-${Date.now()}`,
       name: formData.name,
+      service: formData.name,
       key: formData.key,
       agentId: formData.agentId,
       isActive: true,
+      isValid: false,
       createdAt: new Date()
     };
 
@@ -126,16 +221,54 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({
     return key.substring(0, 4) + '*'.repeat(key.length - 8) + key.substring(key.length - 4);
   };
 
+  const validateApiKey = async (key: ApiKey) => {
+    if (key.isPublic && (key.key === 'public' || key.key === 'DEMO_KEY')) {
+      // Public keys are assumed valid
+      const updatedKey = { ...key, isValid: true };
+      setKeys(prev => prev.map(k => k.id === key.id ? updatedKey : k));
+      return;
+    }
+
+    try {
+      // Basic validation - just check if key has proper format
+      let isValid = false;
+      
+      if (key.service.toLowerCase().includes('openai') && key.key.startsWith('sk-')) {
+        isValid = true; // Basic OpenAI format check
+      } else if (key.service.toLowerCase().includes('hugging') && key.key.startsWith('hf_')) {
+        isValid = true; // Basic Hugging Face format check
+      } else if (key.key && key.key.length > 10) {
+        isValid = true; // Basic length check for other services
+      }
+
+      const updatedKey = { ...key, isValid };
+      setKeys(prev => prev.map(k => k.id === key.id ? updatedKey : k));
+      
+    } catch (error) {
+      console.error('Validation error:', error);
+      const updatedKey = { ...key, isValid: false };
+      setKeys(prev => prev.map(k => k.id === key.id ? updatedKey : k));
+    }
+  };
+
   return (
     <div className={`api-key-manager ${className}`}>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-gray-800">API Key Management</h2>
-        <button
-          onClick={() => setShowAddForm(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          Add API Key
-        </button>
+        <div className="flex space-x-3">
+          <button
+            onClick={() => setShowApiModal(true)}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            Add from Public APIs
+          </button>
+          <button
+            onClick={() => setShowAddForm(true)}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Add Custom Key
+          </button>
+        </div>
       </div>
 
       {/* Add/Edit Form */}
@@ -238,6 +371,20 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({
                     }`}>
                       {key.isActive ? 'Active' : 'Inactive'}
                     </span>
+                    {key.isPublic && (
+                      <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
+                        Public
+                      </span>
+                    )}
+                    <span className={`px-2 py-1 text-xs rounded-full ${
+                      key.isValid === false 
+                        ? 'bg-red-100 text-red-800' 
+                        : key.isValid === true
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {key.isValid === false ? 'Invalid' : key.isValid === true ? 'Valid' : 'Unvalidated'}
+                    </span>
                   </div>
                   
                   <div className="mt-2 space-y-1">
@@ -259,6 +406,13 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({
                 </div>
 
                 <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => validateApiKey(key)}
+                    className="px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
+                  >
+                    Validate
+                  </button>
+                  
                   <button
                     onClick={() => toggleKeyActive(key.id)}
                     className={`px-3 py-1 text-sm rounded ${
@@ -294,12 +448,21 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({
       <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <h4 className="font-medium text-blue-900 mb-2">How to use API Keys</h4>
         <ul className="text-sm text-blue-800 space-y-1">
-          <li>• Add API keys for each AI service you want to use</li>
+          <li>• Add API keys from public APIs or add custom keys</li>
+          <li>• Public APIs with open keys are auto-populated</li>
           <li>• Assign each key to a specific agent based on their capabilities</li>
-          <li>• The system will automatically use the appropriate key for each task</li>
+          <li>• Only validated keys can be used for atomic task assignment</li>
           <li>• Keys are stored locally and never sent to external servers</li>
         </ul>
       </div>
+
+      {/* API Key Selection Modal */}
+      <ApiKeyModal
+        isOpen={showApiModal}
+        onClose={() => setShowApiModal(false)}
+        onSave={handleApiModalSave}
+        apiList={publicApiList}
+      />
     </div>
   );
 }; 
