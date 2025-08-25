@@ -1,0 +1,77 @@
+{
+  "test_execution_default": {
+    "task_id": "test_exec_{{UUID}}",
+    "type": "validation",
+    "capability": "test_execution",
+    "description": "Execute test suite",
+    "preamble": "Run comprehensive test suite including unit, integration, and E2E tests. Generate coverage report, identify failures, and provide detailed test results with recommendations.",
+    "token_limit": 1600,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "validation",
+      "modifiable_fields": ["preamble", "token_limit", "test_types", "coverage_threshold", "parallel_execution"]
+    },
+    "default_priority": 9,
+    "approval_required": false
+  },
+  "quality_check_default": {
+    "task_id": "quality_check_{{UUID}}",
+    "type": "validation",
+    "capability": "quality_check",
+    "description": "Perform quality assurance checks",
+    "preamble": "Execute quality checks including code linting, style validation, and best practices review. Identify issues by severity, provide fixes where applicable, and generate quality report.",
+    "token_limit": 1400,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "validation",
+      "modifiable_fields": ["preamble", "token_limit", "quality_rules", "severity_levels", "auto_fix"]
+    },
+    "default_priority": 7,
+    "approval_required": false
+  },
+  "compliance_validation_default": {
+    "task_id": "compliance_{{UUID}}",
+    "type": "validation",
+    "capability": "compliance_validation",
+    "description": "Validate compliance requirements",
+    "preamble": "Verify compliance with specified standards, regulations, and policies. Document violations, assess risk levels, and provide remediation steps with priority ordering.",
+    "token_limit": 1800,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "validation",
+      "modifiable_fields": ["preamble", "token_limit", "standards", "regulations", "audit_trail"]
+    },
+    "default_priority": 10,
+    "approval_required": true
+  },
+  "schema_validation_default": {
+    "task_id": "schema_valid_{{UUID}}",
+    "type": "validation",
+    "capability": "schema_validation",
+    "description": "Validate data against schema",
+    "preamble": "Validate data structures against defined schemas. Report violations with location and severity. Suggest corrections and verify data integrity constraints.",
+    "token_limit": 1300,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "validation",
+      "modifiable_fields": ["preamble", "token_limit", "schema_type", "strict_mode", "coercion_rules"]
+    },
+    "default_priority": 8,
+    "approval_required": false
+  },
+  "accessibility_check_default": {
+    "task_id": "a11y_check_{{UUID}}",
+    "type": "validation",
+    "capability": "accessibility_check",
+    "description": "Perform accessibility audit",
+    "preamble": "Conduct accessibility audit following WCAG guidelines. Identify violations by impact level, provide remediation code, and generate accessibility score with detailed report.",
+    "token_limit": 1500,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "validation",
+      "modifiable_fields": ["preamble", "token_limit", "wcag_level", "automated_tools", "manual_checks"]
+    },
+    "default_priority": 7,
+    "approval_required": false
+  }
+}

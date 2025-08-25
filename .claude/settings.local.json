@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(npm install:*)",
+      "Bash(curl:*)",
+      "Bash(cargo check:*)",
+      "Bash(cargo build:*)",
+      "Bash(copy simple_executor.rs simple_executor_backup.rs)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

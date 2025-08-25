@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>supercollider</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #0f172a;
+        color: white;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      }
+      .loading-content {
+        text-align: center;
+      }
+      .loading h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+      .spinner {
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        border-top: 3px solid #0ea5e9;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="loading">
+        <div class="loading-content">
+          <h1>supercollider</h1>
+          <div class="spinner"></div>
+          <p style="margin-top: 20px; opacity: 0.7;">Loading...</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      console.log('supercollider starting...');
+      console.log('Window location:', window.location.href);
+      console.log('Tauri available:', typeof window.__TAURI__ !== 'undefined');
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

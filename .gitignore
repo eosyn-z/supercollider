@@ -1,0 +1,54 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node / Vite
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.vite/
+**/.vite/
+.pnpm-store/
+.turbo/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build caches
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Tauri / Rust
+target/
+**/target/
+src-tauri/target/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.code-workspace
+.history/
+
+# Tests / Coverage
+coverage/
+*.coverage
+*.lcov
+
+# Generated project runtime data
+project_*.json
+task_*.json
+saved_projects/
+src-tauri/saved_projects/
+
+# Misc
+*.tmp
+*.swp
+*.swo
+

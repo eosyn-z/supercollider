@@ -1,0 +1,77 @@
+{
+  "web_research_default": {
+    "task_id": "web_research_{{UUID}}",
+    "type": "research",
+    "capability": "web_research",
+    "description": "Conduct web-based research",
+    "preamble": "Research the specified topic using reliable sources. Provide comprehensive findings with citations, key insights, and synthesis of information. Verify facts and cross-reference sources.",
+    "token_limit": 3000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "research",
+      "modifiable_fields": ["preamble", "token_limit", "sources_required", "depth", "time_range"]
+    },
+    "default_priority": 6,
+    "approval_required": false
+  },
+  "technical_research_default": {
+    "task_id": "tech_research_{{UUID}}",
+    "type": "research",
+    "capability": "technical_research",
+    "description": "Perform technical evaluation and research",
+    "preamble": "Evaluate technical solutions, frameworks, or approaches. Compare alternatives using defined criteria, provide recommendations with justification, and include implementation considerations.",
+    "token_limit": 2500,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "research",
+      "modifiable_fields": ["preamble", "token_limit", "evaluation_criteria", "comparison_matrix", "poc_required"]
+    },
+    "default_priority": 7,
+    "approval_required": false
+  },
+  "market_research_default": {
+    "task_id": "market_research_{{UUID}}",
+    "type": "research",
+    "capability": "market_research",
+    "description": "Conduct market analysis and research",
+    "preamble": "Analyze market conditions, competitors, trends, and opportunities. Provide data-driven insights with supporting evidence. Include SWOT analysis and strategic recommendations.",
+    "token_limit": 2800,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "research",
+      "modifiable_fields": ["preamble", "token_limit", "market_segments", "competitor_list", "metrics"]
+    },
+    "default_priority": 6,
+    "approval_required": true
+  },
+  "literature_review_default": {
+    "task_id": "lit_review_{{UUID}}",
+    "type": "research",
+    "capability": "literature_review",
+    "description": "Conduct academic literature review",
+    "preamble": "Review academic literature on the specified topic. Synthesize findings, identify research gaps, and provide critical analysis. Include proper citations and bibliography.",
+    "token_limit": 3000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "research",
+      "modifiable_fields": ["preamble", "token_limit", "databases", "date_range", "citation_style"]
+    },
+    "default_priority": 5,
+    "approval_required": false
+  },
+  "feasibility_study_default": {
+    "task_id": "feasibility_{{UUID}}",
+    "type": "research",
+    "capability": "technical_research",
+    "description": "Conduct feasibility study",
+    "preamble": "Evaluate feasibility of proposed solution considering technical, economic, and operational factors. Identify risks, constraints, and success criteria. Provide go/no-go recommendation.",
+    "token_limit": 2200,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "research",
+      "modifiable_fields": ["preamble", "token_limit", "feasibility_factors", "risk_tolerance", "timeline"]
+    },
+    "default_priority": 8,
+    "approval_required": true
+  }
+}

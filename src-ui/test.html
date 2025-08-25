@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>supercollider Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        h1 {
+            margin: 0 0 20px 0;
+            font-size: 2.5em;
+        }
+        .status {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .success { background: rgba(34, 197, 94, 0.3); }
+        .error { background: rgba(239, 68, 68, 0.3); }
+        .info { background: rgba(59, 130, 246, 0.3); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>supercollider</h1>
+        
+        <div class="status success">
+            HTML is loading correctly
+        </div>
+        
+        <div class="status info">
+            If you see this page, the basic web server is working
+        </div>
+        
+        <div class="status">
+            Check the browser console (F12) for any JavaScript errors
+        </div>
+        
+        <div id="react-test" class="status">
+            Testing React mount point...
+        </div>
+    </div>
+
+    <script>
+        console.log('Test page loaded successfully');
+        
+        // Test if we can modify the DOM
+        const testDiv = document.getElementById('react-test');
+        if (testDiv) {
+            testDiv.innerHTML = 'DOM manipulation works';
+            testDiv.className = 'status success';
+        }
+        
+        // Check if running in Tauri
+        if (window.__TAURI__) {
+            console.log('Running inside Tauri');
+        } else {
+            console.log('Not running inside Tauri (running in browser)');
+        }
+    </script>
+</body>
+</html>

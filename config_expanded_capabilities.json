@@ -1,0 +1,320 @@
+{
+  "agents": {
+    "DataAnalysisAgent": {
+      "capabilities": ["data_analysis", "statistical_analysis"],
+      "token_limit": 2000
+    },
+    "SystemAnalysisAgent": {
+      "capabilities": ["system_analysis", "architecture_review"],
+      "token_limit": 2500
+    },
+    "SecurityAnalysisAgent": {
+      "capabilities": ["security_analysis", "vulnerability_assessment"],
+      "token_limit": 2200
+    },
+    "ContentAnalysisAgent": {
+      "capabilities": ["content_analysis", "sentiment_analysis"],
+      "token_limit": 1800
+    },
+    "ResearchAgent": {
+      "capabilities": ["web_research", "technical_research", "market_research", "literature_review"],
+      "token_limit": 3000
+    },
+    "CodeGenAgent": {
+      "capabilities": ["code", "code_generation", "refactoring"],
+      "token_limit": 2000
+    },
+    "TextGenAgent": {
+      "capabilities": ["text", "documentation", "translation"],
+      "token_limit": 1500
+    },
+    "ImageGenAgent": {
+      "capabilities": ["image", "diagram_generation", "ui_design"],
+      "token_limit": 1000
+    },
+    "SoundGenAgent": {
+      "capabilities": ["sound", "audio_processing", "narration"],
+      "token_limit": 800
+    },
+    "VideoGenAgent": {
+      "capabilities": ["video", "animation", "composition"],
+      "token_limit": 1200
+    },
+    "DataTransformAgent": {
+      "capabilities": ["data_transformation", "etl", "migration"],
+      "token_limit": 1800
+    },
+    "FormatConversionAgent": {
+      "capabilities": ["format_conversion", "encoding", "serialization"],
+      "token_limit": 1500
+    },
+    "TestExecutionAgent": {
+      "capabilities": ["test_execution", "validation", "quality_check"],
+      "token_limit": 1600
+    },
+    "ComplianceAgent": {
+      "capabilities": ["compliance_validation", "policy_check", "license_check"],
+      "token_limit": 1400
+    },
+    "IntegrationAgent": {
+      "capabilities": ["api_integration", "database_ops", "service_connection"],
+      "token_limit": 1800
+    },
+    "DeploymentAgent": {
+      "capabilities": ["deployment", "containerization", "infrastructure"],
+      "token_limit": 1700
+    },
+    "MonitoringAgent": {
+      "capabilities": ["monitoring", "logging", "alerting"],
+      "token_limit": 1500
+    },
+    "OptimizationAgent": {
+      "capabilities": ["performance_optimization", "resource_optimization", "workflow_optimization"],
+      "token_limit": 2000
+    },
+    "CommunicationAgent": {
+      "capabilities": ["notification", "reporting", "presentation"],
+      "token_limit": 1200
+    },
+    "EvaluationAgent": {
+      "capabilities": ["evaluation", "benchmarking", "quality_assessment"],
+      "token_limit": 1600
+    }
+  },
+  "capability_groups": {
+    "analysis": [
+      "data_analysis",
+      "system_analysis",
+      "security_analysis",
+      "content_analysis",
+      "financial_analysis"
+    ],
+    "generation": [
+      "code",
+      "text",
+      "image",
+      "sound",
+      "video",
+      "data"
+    ],
+    "transformation": [
+      "format_conversion",
+      "data_transformation",
+      "language_translation",
+      "code_transpilation",
+      "media_conversion"
+    ],
+    "validation": [
+      "test_execution",
+      "quality_check",
+      "compliance_validation",
+      "schema_validation",
+      "accessibility_check"
+    ],
+    "integration": [
+      "api_integration",
+      "database_ops",
+      "deployment",
+      "monitoring",
+      "version_control"
+    ],
+    "communication": [
+      "notification",
+      "reporting",
+      "documentation",
+      "presentation"
+    ],
+    "research": [
+      "web_research",
+      "technical_research",
+      "market_research",
+      "literature_review"
+    ],
+    "optimization": [
+      "performance_optimization",
+      "resource_optimization",
+      "workflow_optimization",
+      "seo_optimization"
+    ]
+  },
+  "approval_mode": "dynamic",
+  "daily_token_limit": 100000,
+  "default_project_types": [
+    "coding_project",
+    "data_pipeline",
+    "research_report",
+    "security_audit",
+    "performance_optimization",
+    "integration_project",
+    "content_creation",
+    "presentation",
+    "video_production",
+    "full_stack_application",
+    "api_development",
+    "documentation_suite",
+    "testing_suite",
+    "deployment_pipeline"
+  ],
+  "agent_registry": {
+    "persistence": "file",
+    "default_timeouts_ms": 30000,
+    "default_retries": 3,
+    "allowed_capabilities": [
+      "code",
+      "text",
+      "image",
+      "sound",
+      "video",
+      "data_analysis",
+      "system_analysis",
+      "security_analysis",
+      "content_analysis",
+      "financial_analysis",
+      "data_transformation",
+      "format_conversion",
+      "language_translation",
+      "code_transpilation",
+      "media_conversion",
+      "test_execution",
+      "quality_check",
+      "compliance_validation",
+      "schema_validation",
+      "accessibility_check",
+      "api_integration",
+      "database_ops",
+      "deployment",
+      "monitoring",
+      "version_control",
+      "notification",
+      "reporting",
+      "documentation",
+      "presentation",
+      "web_research",
+      "technical_research",
+      "market_research",
+      "literature_review",
+      "performance_optimization",
+      "resource_optimization",
+      "workflow_optimization",
+      "seo_optimization"
+    ],
+    "validators": {
+      "request_template_required": true,
+      "response_schema": {
+        "output": "string",
+        "tokens_used": "integer",
+        "finish_reason": "string",
+        "metadata": "object"
+      }
+    }
+  },
+  "task_priorities": {
+    "critical_path": {
+      "security_analysis": 100,
+      "compliance_validation": 95,
+      "test_execution": 90
+    },
+    "high_priority": {
+      "code": 85,
+      "api_integration": 80,
+      "deployment": 80
+    },
+    "medium_priority": {
+      "documentation": 60,
+      "optimization": 65,
+      "monitoring": 70
+    },
+    "low_priority": {
+      "reporting": 40,
+      "presentation": 45,
+      "seo_optimization": 35
+    }
+  },
+  "batching_rules": {
+    "enabled": true,
+    "batch_size": 5,
+    "concurrency": 3,
+    "homogeneous_only": false,
+    "capability_batching": {
+      "analysis": {
+        "max_batch": 10,
+        "parallel": true
+      },
+      "generation": {
+        "max_batch": 5,
+        "parallel": true
+      },
+      "validation": {
+        "max_batch": 20,
+        "parallel": true
+      },
+      "transformation": {
+        "max_batch": 15,
+        "parallel": true
+      }
+    }
+  },
+  "context_strategies": {
+    "default": "adaptive",
+    "modes": {
+      "minimal": {
+        "max_tokens": 1000,
+        "preserve": ["acceptance_criteria", "constraints"]
+      },
+      "standard": {
+        "max_tokens": 4000,
+        "preserve": ["acceptance_criteria", "constraints", "dependencies", "recent_outputs"]
+      },
+      "full": {
+        "max_tokens": 8000,
+        "preserve": "all",
+        "summarization": "disabled"
+      }
+    },
+    "escalation": {
+      "on_failure": "upgrade_to_full",
+      "on_clarification": "include_full_history"
+    }
+  },
+  "quality_gates": {
+    "code_projects": {
+      "test_coverage": 80,
+      "linting_pass": true,
+      "security_scan": true,
+      "documentation_complete": true
+    },
+    "data_projects": {
+      "validation_pass": true,
+      "schema_compliance": true,
+      "performance_threshold": 1000
+    },
+    "content_projects": {
+      "grammar_check": true,
+      "plagiarism_check": true,
+      "seo_score": 75
+    }
+  },
+  "failure_strategies": {
+    "retry_policies": {
+      "transient_errors": {
+        "max_retries": 3,
+        "backoff": "exponential",
+        "initial_delay_ms": 1000
+      },
+      "validation_errors": {
+        "max_retries": 2,
+        "backoff": "linear",
+        "initial_delay_ms": 500
+      },
+      "insufficient_context": {
+        "max_retries": 1,
+        "action": "request_clarification"
+      }
+    },
+    "escalation_paths": {
+      "critical_failure": "halt_and_notify",
+      "partial_failure": "continue_with_degradation",
+      "recoverable_failure": "retry_with_modification"
+    }
+  }
+}

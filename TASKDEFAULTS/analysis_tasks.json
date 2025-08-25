@@ -1,0 +1,77 @@
+{
+  "data_analysis_default": {
+    "task_id": "data_analysis_{{UUID}}",
+    "type": "analysis",
+    "capability": "data_analysis",
+    "description": "Perform statistical analysis on dataset",
+    "preamble": "Analyze the dataset using appropriate statistical methods. Include descriptive statistics, correlation analysis, and trend identification. Output results in structured JSON format with visualizations where applicable.",
+    "token_limit": 2000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "analysis",
+      "modifiable_fields": ["preamble", "token_limit", "dependencies", "input_chain"]
+    },
+    "default_priority": 7,
+    "approval_required": false
+  },
+  "system_analysis_default": {
+    "task_id": "system_analysis_{{UUID}}",
+    "type": "analysis", 
+    "capability": "system_analysis",
+    "description": "Analyze system architecture and performance",
+    "preamble": "Review system architecture, identify components and dependencies, analyze performance characteristics, and provide optimization recommendations. Include architectural diagrams and metrics.",
+    "token_limit": 2500,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "analysis",
+      "modifiable_fields": ["preamble", "token_limit", "dependencies", "input_chain"]
+    },
+    "default_priority": 8,
+    "approval_required": false
+  },
+  "security_analysis_default": {
+    "task_id": "security_analysis_{{UUID}}",
+    "type": "analysis",
+    "capability": "security_analysis",
+    "description": "Conduct security vulnerability assessment",
+    "preamble": "Perform comprehensive security analysis covering OWASP Top 10, check for common vulnerabilities, review authentication/authorization mechanisms, and generate prioritized remediation plan.",
+    "token_limit": 2200,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "analysis",
+      "modifiable_fields": ["preamble", "token_limit", "dependencies", "standards"]
+    },
+    "default_priority": 10,
+    "approval_required": true
+  },
+  "content_analysis_default": {
+    "task_id": "content_analysis_{{UUID}}",
+    "type": "analysis",
+    "capability": "content_analysis",
+    "description": "Analyze content for patterns and insights",
+    "preamble": "Analyze content for sentiment, key themes, entity extraction, and pattern recognition. Provide summary statistics and actionable insights in structured format.",
+    "token_limit": 1800,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "analysis",
+      "modifiable_fields": ["preamble", "token_limit", "analysis_depth"]
+    },
+    "default_priority": 6,
+    "approval_required": false
+  },
+  "financial_analysis_default": {
+    "task_id": "financial_analysis_{{UUID}}",
+    "type": "analysis",
+    "capability": "financial_analysis",
+    "description": "Perform financial analysis and modeling",
+    "preamble": "Conduct financial analysis including cost-benefit analysis, ROI calculations, budget projections, and risk assessment. Provide detailed breakdown with supporting calculations.",
+    "token_limit": 2000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "analysis",
+      "modifiable_fields": ["preamble", "token_limit", "time_horizon", "metrics"]
+    },
+    "default_priority": 8,
+    "approval_required": true
+  }
+}

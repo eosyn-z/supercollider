@@ -1,0 +1,77 @@
+{
+  "code_generation_default": {
+    "task_id": "code_gen_{{UUID}}",
+    "type": "generation",
+    "capability": "code",
+    "description": "Generate code implementation",
+    "preamble": "Implement the specified functionality following best practices and project conventions. Include error handling, input validation, and inline documentation. Ensure code is production-ready and tested.",
+    "token_limit": 2000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "generation",
+      "modifiable_fields": ["preamble", "token_limit", "language", "framework", "test_required"]
+    },
+    "default_priority": 9,
+    "approval_required": true
+  },
+  "text_generation_default": {
+    "task_id": "text_gen_{{UUID}}",
+    "type": "generation",
+    "capability": "text",
+    "description": "Generate text content",
+    "preamble": "Create well-structured text content that is clear, concise, and appropriate for the target audience. Follow specified format and style guidelines. Include relevant examples and references.",
+    "token_limit": 1500,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "generation",
+      "modifiable_fields": ["preamble", "token_limit", "tone", "format", "word_count"]
+    },
+    "default_priority": 6,
+    "approval_required": false
+  },
+  "image_generation_default": {
+    "task_id": "image_gen_{{UUID}}",
+    "type": "generation",
+    "capability": "image",
+    "description": "Generate visual content",
+    "preamble": "Create visual content according to specifications. Include appropriate resolution, color scheme, and style. Ensure accessibility with proper alt text descriptions.",
+    "token_limit": 1000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "generation",
+      "modifiable_fields": ["preamble", "token_limit", "dimensions", "style", "format"]
+    },
+    "default_priority": 5,
+    "approval_required": true
+  },
+  "documentation_generation_default": {
+    "task_id": "doc_gen_{{UUID}}",
+    "type": "generation",
+    "capability": "documentation",
+    "description": "Generate technical documentation",
+    "preamble": "Create comprehensive technical documentation including API references, user guides, and code examples. Use clear language, proper formatting, and include all necessary sections.",
+    "token_limit": 2000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "generation",
+      "modifiable_fields": ["preamble", "token_limit", "doc_type", "sections", "examples_required"]
+    },
+    "default_priority": 7,
+    "approval_required": false
+  },
+  "test_generation_default": {
+    "task_id": "test_gen_{{UUID}}",
+    "type": "generation",
+    "capability": "code",
+    "description": "Generate test cases and test code",
+    "preamble": "Create comprehensive test suite including unit tests, integration tests, and edge cases. Ensure good coverage and follow testing best practices. Include test documentation.",
+    "token_limit": 1800,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "generation",
+      "modifiable_fields": ["preamble", "token_limit", "test_framework", "coverage_target", "test_types"]
+    },
+    "default_priority": 8,
+    "approval_required": false
+  }
+}

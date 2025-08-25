@@ -1,0 +1,43 @@
+[package]
+name = "supercollider"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tauri = { version = "1.5", features = [ "path-all", "fs-exists", "fs-read-dir", "fs-write-file", "fs-read-file", "fs-create-dir", "notification-all"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+thiserror = "1.0"
+parking_lot = "0.12"
+tokio = { version = "1", features = ["full"] }
+dirs = "5"
+which = "6"
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["clock", "std", "serde"] }
+log = "0.4"
+env_logger = "0.10"
+rand = "0.8"
+reqwest = { version = "0.11", features = ["json", "rustls-tls", "stream"] }
+async-trait = "0.1"
+futures = "0.3"
+crossbeam-channel = "0.5"
+once_cell = "1.19"
+regex = "1.10"
+sha2 = "0.10"
+base64 = "0.21"
+tokio-tungstenite = "0.20"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tiktoken-rs = "0.5"
+keyring = "2.0"
+backoff = { version = "0.4", features = ["tokio"] }
+eventsource-stream = "0.2"
+tokio-stream = "0.1"
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+image = "0.24"
+ico = "0.3"
+
+

@@ -1,0 +1,77 @@
+{
+  "performance_optimization_default": {
+    "task_id": "perf_optimize_{{UUID}}",
+    "type": "optimization",
+    "capability": "performance_optimization",
+    "description": "Optimize application performance",
+    "preamble": "Identify and optimize performance bottlenecks. Implement caching strategies, optimize algorithms, and improve resource utilization. Target specific performance metrics with measurable improvements.",
+    "token_limit": 2000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "optimization",
+      "modifiable_fields": ["preamble", "token_limit", "target_metrics", "optimization_techniques", "acceptable_tradeoffs"]
+    },
+    "default_priority": 8,
+    "approval_required": true
+  },
+  "resource_optimization_default": {
+    "task_id": "resource_optimize_{{UUID}}",
+    "type": "optimization",
+    "capability": "resource_optimization",
+    "description": "Optimize resource utilization",
+    "preamble": "Optimize resource usage including memory, CPU, and storage. Implement efficient resource allocation, cleanup procedures, and monitoring. Provide before/after metrics.",
+    "token_limit": 1800,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "optimization",
+      "modifiable_fields": ["preamble", "token_limit", "resource_types", "optimization_goals", "constraints"]
+    },
+    "default_priority": 7,
+    "approval_required": false
+  },
+  "workflow_optimization_default": {
+    "task_id": "workflow_optimize_{{UUID}}",
+    "type": "optimization",
+    "capability": "workflow_optimization",
+    "description": "Optimize business workflows",
+    "preamble": "Analyze and optimize workflows for efficiency. Identify bottlenecks, automate repetitive tasks, and streamline processes. Provide implementation plan with ROI estimates.",
+    "token_limit": 1900,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "optimization",
+      "modifiable_fields": ["preamble", "token_limit", "workflow_type", "automation_targets", "success_metrics"]
+    },
+    "default_priority": 6,
+    "approval_required": true
+  },
+  "seo_optimization_default": {
+    "task_id": "seo_optimize_{{UUID}}",
+    "type": "optimization",
+    "capability": "seo_optimization",
+    "description": "Optimize for search engines",
+    "preamble": "Optimize content and technical SEO factors. Improve page speed, meta tags, structured data, and content quality. Generate SEO audit report with actionable recommendations.",
+    "token_limit": 1600,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "optimization",
+      "modifiable_fields": ["preamble", "token_limit", "seo_factors", "target_keywords", "competitor_analysis"]
+    },
+    "default_priority": 5,
+    "approval_required": false
+  },
+  "cost_optimization_default": {
+    "task_id": "cost_optimize_{{UUID}}",
+    "type": "optimization",
+    "capability": "resource_optimization",
+    "description": "Optimize costs and spending",
+    "preamble": "Analyze and optimize costs across infrastructure, services, and operations. Identify savings opportunities, implement cost controls, and provide ROI analysis.",
+    "token_limit": 1700,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "optimization",
+      "modifiable_fields": ["preamble", "token_limit", "cost_centers", "optimization_targets", "budget_constraints"]
+    },
+    "default_priority": 7,
+    "approval_required": true
+  }
+}

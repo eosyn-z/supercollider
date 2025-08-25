@@ -1,0 +1,77 @@
+{
+  "build": {
+    "beforeBuildCommand": "cd src-ui && npm run build",
+    "beforeDevCommand": "cd src-ui && npm run dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../src-ui/dist"
+  },
+  "package": {
+    "productName": "SuperCollider",
+    "version": "0.1.0"
+  },
+  "tauri": {
+    "bundle": {
+      "active": true,
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "com.supercollider.app",
+      "targets": ["msi"],
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "",
+        "wix": {
+          "language": "en-US"
+        }
+      }
+    },
+    "allowlist": {
+      "all": false,
+      "notification": {
+        "all": true
+      },
+      "fs": {
+        "all": false,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "createDir": true,
+        "removeDir": false,
+        "removeFile": false,
+        "exists": true,
+        "scope": ["$APPDATA", "$APPDATA/**"]
+      },
+      "path": {
+        "all": true
+      },
+      "shell": {
+        "all": false
+      }
+    },
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "height": 900,
+        "resizable": true,
+        "title": "SuperCollider - AI Orchestration System",
+        "width": 1400,
+        "minWidth": 1024,
+        "minHeight": 600,
+        "center": true,
+        "decorations": true,
+        "transparent": false
+      }
+    ],
+    "updater": {
+      "active": false
+    }
+  }
+}

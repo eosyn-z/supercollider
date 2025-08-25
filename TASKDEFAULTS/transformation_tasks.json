@@ -1,0 +1,77 @@
+{
+  "data_transformation_default": {
+    "task_id": "data_transform_{{UUID}}",
+    "type": "transformation",
+    "capability": "data_transformation",
+    "description": "Transform and process data",
+    "preamble": "Transform data according to specifications. Apply cleaning, normalization, aggregation, and validation rules. Ensure data integrity and provide transformation audit log.",
+    "token_limit": 1800,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "transformation",
+      "modifiable_fields": ["preamble", "token_limit", "operations", "validation_rules", "output_format"]
+    },
+    "default_priority": 7,
+    "approval_required": false
+  },
+  "format_conversion_default": {
+    "task_id": "format_convert_{{UUID}}",
+    "type": "transformation",
+    "capability": "format_conversion",
+    "description": "Convert between file formats",
+    "preamble": "Convert files from source format to target format while preserving data integrity. Handle encoding issues, validate output, and provide conversion report.",
+    "token_limit": 1500,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "transformation",
+      "modifiable_fields": ["preamble", "token_limit", "source_format", "target_format", "encoding"]
+    },
+    "default_priority": 5,
+    "approval_required": false
+  },
+  "translation_default": {
+    "task_id": "translation_{{UUID}}",
+    "type": "transformation",
+    "capability": "language_translation",
+    "description": "Translate content between languages",
+    "preamble": "Translate content accurately while preserving meaning, context, and tone. Adapt cultural references appropriately. Maintain formatting and technical terminology consistency.",
+    "token_limit": 2000,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "transformation",
+      "modifiable_fields": ["preamble", "token_limit", "source_language", "target_language", "domain"]
+    },
+    "default_priority": 6,
+    "approval_required": true
+  },
+  "code_transpilation_default": {
+    "task_id": "transpile_{{UUID}}",
+    "type": "transformation",
+    "capability": "code_transpilation",
+    "description": "Convert code between languages",
+    "preamble": "Transpile code from source language to target language. Maintain functionality, follow target language idioms, and preserve comments. Include migration notes.",
+    "token_limit": 2200,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "transformation",
+      "modifiable_fields": ["preamble", "token_limit", "source_lang", "target_lang", "framework_mapping"]
+    },
+    "default_priority": 8,
+    "approval_required": true
+  },
+  "media_conversion_default": {
+    "task_id": "media_convert_{{UUID}}",
+    "type": "transformation",
+    "capability": "media_conversion",
+    "description": "Convert media files",
+    "preamble": "Convert media files to specified format with appropriate quality settings. Optimize for target platform, maintain aspect ratios, and preserve metadata where applicable.",
+    "token_limit": 1200,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "transformation",
+      "modifiable_fields": ["preamble", "token_limit", "quality_settings", "compression", "resolution"]
+    },
+    "default_priority": 4,
+    "approval_required": false
+  }
+}

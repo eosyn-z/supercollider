@@ -1,0 +1,77 @@
+{
+  "api_integration_default": {
+    "task_id": "api_integrate_{{UUID}}",
+    "type": "integration",
+    "capability": "api_integration",
+    "description": "Integrate with external API",
+    "preamble": "Implement API integration with authentication, error handling, and retry logic. Include request/response logging, rate limiting, and comprehensive error recovery.",
+    "token_limit": 1800,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "integration",
+      "modifiable_fields": ["preamble", "token_limit", "auth_type", "endpoints", "retry_strategy"]
+    },
+    "default_priority": 8,
+    "approval_required": true
+  },
+  "database_ops_default": {
+    "task_id": "db_ops_{{UUID}}",
+    "type": "integration",
+    "capability": "database_ops",
+    "description": "Perform database operations",
+    "preamble": "Execute database operations including schema creation, migrations, and query optimization. Ensure data integrity, implement proper indexing, and include rollback procedures.",
+    "token_limit": 1600,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "integration",
+      "modifiable_fields": ["preamble", "token_limit", "db_type", "operations", "transaction_mode"]
+    },
+    "default_priority": 9,
+    "approval_required": true
+  },
+  "deployment_default": {
+    "task_id": "deploy_{{UUID}}",
+    "type": "integration",
+    "capability": "deployment",
+    "description": "Deploy application to environment",
+    "preamble": "Deploy application with zero-downtime strategy. Include health checks, rollback procedures, and monitoring setup. Validate deployment and perform smoke tests.",
+    "token_limit": 1700,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "integration",
+      "modifiable_fields": ["preamble", "token_limit", "environment", "strategy", "validation_steps"]
+    },
+    "default_priority": 9,
+    "approval_required": true
+  },
+  "monitoring_setup_default": {
+    "task_id": "monitor_setup_{{UUID}}",
+    "type": "integration",
+    "capability": "monitoring",
+    "description": "Configure monitoring and alerting",
+    "preamble": "Set up comprehensive monitoring including metrics collection, log aggregation, and alerting rules. Create dashboards for different stakeholders and define SLIs/SLOs.",
+    "token_limit": 1500,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "integration",
+      "modifiable_fields": ["preamble", "token_limit", "metrics", "alert_channels", "dashboard_types"]
+    },
+    "default_priority": 7,
+    "approval_required": false
+  },
+  "version_control_default": {
+    "task_id": "vcs_ops_{{UUID}}",
+    "type": "integration",
+    "capability": "version_control",
+    "description": "Perform version control operations",
+    "preamble": "Execute version control operations including branching, merging, and tagging. Resolve conflicts, maintain clean history, and follow defined branching strategy.",
+    "token_limit": 1400,
+    "metadata": {
+      "template_version": "1.0",
+      "category": "integration",
+      "modifiable_fields": ["preamble", "token_limit", "vcs_type", "branch_strategy", "commit_standards"]
+    },
+    "default_priority": 6,
+    "approval_required": false
+  }
+}

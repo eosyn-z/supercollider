@@ -1,0 +1,383 @@
+{
+  "tools": [
+    {
+      "id": "ffmpeg",
+      "name": "FFmpeg",
+      "category": "VideoProcessing",
+      "description": "Complete solution for recording, converting and streaming audio/video",
+      "capabilities": [
+        "video",
+        "sound",
+        "VideoEncode",
+        "VideoDecode",
+        "VideoTranscode",
+        "VideoEdit",
+        "VideoComposite",
+        "VideoEffects",
+        "AudioEncode",
+        "AudioDecode",
+        "AudioMix",
+        "AudioEffects"
+      ],
+      "cannot_process": ["text", "code", "3d_models", "documents"],
+      "input_formats": ["mp4", "avi", "mov", "mkv", "mp3", "wav", "flac", "aac"],
+      "output_formats": ["mp4", "webm", "avi", "mkv", "mp3", "wav", "aac", "ogg"],
+      "required_for_tasks": [
+        "video_transcode",
+        "video_compress",
+        "audio_extract",
+        "video_merge",
+        "video_trim"
+      ]
+    },
+    {
+      "id": "blender",
+      "name": "Blender",
+      "category": "ThreeDModeling",
+      "description": "Open source 3D creation suite for modeling, animation, and rendering",
+      "capabilities": [
+        "image",
+        "video",
+        "ThreeDRender",
+        "ThreeDModel",
+        "ThreeDAnimate",
+        "ThreeDSimulate",
+        "VideoEdit",
+        "ImageGenerate"
+      ],
+      "cannot_process": ["text", "code", "sound", "documents"],
+      "input_formats": ["blend", "obj", "fbx", "dae", "stl", "ply", "3ds"],
+      "output_formats": ["png", "jpg", "exr", "mp4", "avi", "blend", "obj", "fbx"],
+      "required_for_tasks": [
+        "3d_render",
+        "3d_animation",
+        "3d_modeling",
+        "physics_simulation",
+        "visual_effects"
+      ]
+    },
+    {
+      "id": "imagemagick",
+      "name": "ImageMagick",
+      "category": "ImageProcessing",
+      "description": "Software suite for displaying, converting, and editing raster images",
+      "capabilities": [
+        "image",
+        "ImageResize",
+        "ImageConvert",
+        "ImageFilter",
+        "ImageComposite"
+      ],
+      "cannot_process": ["text", "code", "video", "sound", "3d_models"],
+      "input_formats": ["jpg", "png", "gif", "tiff", "bmp", "svg", "webp"],
+      "output_formats": ["jpg", "png", "gif", "webp", "tiff", "pdf"],
+      "required_for_tasks": [
+        "image_resize",
+        "image_convert",
+        "image_filter",
+        "batch_image_process",
+        "thumbnail_generation"
+      ]
+    },
+    {
+      "id": "pandoc",
+      "name": "Pandoc",
+      "category": "DocumentProcessing",
+      "description": "Universal document converter",
+      "capabilities": [
+        "text",
+        "documentation",
+        "DocumentConvert",
+        "DocumentRender",
+        "DocumentMerge"
+      ],
+      "cannot_process": ["video", "sound", "image", "3d_models", "code"],
+      "input_formats": ["md", "rst", "tex", "docx", "odt", "html", "epub"],
+      "output_formats": ["pdf", "html", "docx", "epub", "tex", "odt"],
+      "required_for_tasks": [
+        "document_convert",
+        "markdown_to_pdf",
+        "documentation_build",
+        "report_generation"
+      ]
+    },
+    {
+      "id": "sox",
+      "name": "SoX",
+      "category": "AudioProcessing",
+      "description": "Sound eXchange - audio manipulation tool",
+      "capabilities": [
+        "sound",
+        "AudioEncode",
+        "AudioDecode",
+        "AudioMix",
+        "AudioEffects",
+        "AudioSynthesize"
+      ],
+      "cannot_process": ["text", "code", "video", "image", "3d_models"],
+      "input_formats": ["wav", "mp3", "flac", "ogg", "aiff", "au"],
+      "output_formats": ["wav", "mp3", "flac", "ogg", "aiff"],
+      "required_for_tasks": [
+        "audio_convert",
+        "audio_effects",
+        "audio_normalize",
+        "audio_mix"
+      ]
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "category": "VersionControl",
+      "description": "Distributed version control system",
+      "capabilities": [
+        "code",
+        "version_control",
+        "CodeVersion",
+        "CodeMerge",
+        "CodeDiff"
+      ],
+      "cannot_process": ["video", "sound", "image", "3d_models"],
+      "input_formats": ["*"],
+      "output_formats": ["*"],
+      "required_for_tasks": [
+        "code_commit",
+        "code_merge",
+        "branch_management",
+        "version_tracking"
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "Docker",
+      "category": "Containerization",
+      "description": "Platform for developing, shipping, and running applications in containers",
+      "capabilities": [
+        "deployment",
+        "containerization",
+        "CodePackage",
+        "CodeDeploy"
+      ],
+      "cannot_process": ["video", "sound", "image", "3d_models", "documents"],
+      "input_formats": ["Dockerfile", "docker-compose.yml"],
+      "output_formats": ["container", "image"],
+      "required_for_tasks": [
+        "containerize_app",
+        "deploy_service",
+        "environment_setup"
+      ]
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "category": "CodeExecution",
+      "description": "Python interpreter for executing scripts and data processing",
+      "capabilities": [
+        "code",
+        "data_analysis",
+        "CodeExecute",
+        "DataTransform",
+        "DataAnalyze",
+        "DataVisualize"
+      ],
+      "cannot_process": ["video", "sound", "3d_models"],
+      "input_formats": ["py", "ipynb", "csv", "json", "xlsx"],
+      "output_formats": ["*"],
+      "required_for_tasks": [
+        "data_analysis",
+        "script_execution",
+        "automation",
+        "data_visualization"
+      ]
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "category": "CodeExecution",
+      "description": "JavaScript runtime for server-side execution",
+      "capabilities": [
+        "code",
+        "CodeExecute",
+        "CodeCompile",
+        "CodeTest"
+      ],
+      "cannot_process": ["video", "sound", "image", "3d_models"],
+      "input_formats": ["js", "ts", "json", "jsx", "tsx"],
+      "output_formats": ["*"],
+      "required_for_tasks": [
+        "web_build",
+        "api_server",
+        "javascript_execution",
+        "package_management"
+      ]
+    },
+    {
+      "id": "tesseract",
+      "name": "Tesseract OCR",
+      "category": "ImageProcessing",
+      "description": "Optical Character Recognition engine",
+      "capabilities": [
+        "image",
+        "text",
+        "ImageToText",
+        "TextExtraction"
+      ],
+      "cannot_process": ["video", "sound", "code", "3d_models"],
+      "input_formats": ["png", "jpg", "tiff", "pdf"],
+      "output_formats": ["txt", "pdf", "hocr", "tsv"],
+      "required_for_tasks": [
+        "ocr_extraction",
+        "document_digitization",
+        "text_recognition"
+      ]
+    },
+    {
+      "id": "inkscape",
+      "name": "Inkscape",
+      "category": "ImageProcessing",
+      "description": "Vector graphics editor",
+      "capabilities": [
+        "image",
+        "ImageGenerate",
+        "ImageConvert",
+        "VectorGraphics"
+      ],
+      "cannot_process": ["video", "sound", "text", "code", "3d_models"],
+      "input_formats": ["svg", "pdf", "eps", "ai"],
+      "output_formats": ["svg", "png", "pdf", "eps"],
+      "required_for_tasks": [
+        "vector_design",
+        "logo_creation",
+        "svg_optimization"
+      ]
+    },
+    {
+      "id": "audacity",
+      "name": "Audacity",
+      "category": "AudioProcessing",
+      "description": "Audio editor and recorder",
+      "capabilities": [
+        "sound",
+        "AudioEdit",
+        "AudioEffects",
+        "AudioRecord"
+      ],
+      "cannot_process": ["video", "text", "code", "image", "3d_models"],
+      "input_formats": ["wav", "mp3", "ogg", "flac", "aiff"],
+      "output_formats": ["wav", "mp3", "ogg", "flac"],
+      "required_for_tasks": [
+        "audio_editing",
+        "podcast_production",
+        "noise_reduction"
+      ]
+    },
+    {
+      "id": "openscad",
+      "name": "OpenSCAD",
+      "category": "ThreeDModeling",
+      "description": "Programmatic 3D CAD modeler",
+      "capabilities": [
+        "3d_models",
+        "code",
+        "ThreeDModel",
+        "CodeToModel"
+      ],
+      "cannot_process": ["video", "sound", "text", "image"],
+      "input_formats": ["scad", "stl", "off", "dxf"],
+      "output_formats": ["stl", "off", "amf", "3mf", "dxf", "svg", "png"],
+      "required_for_tasks": [
+        "parametric_modeling",
+        "3d_printing_prep",
+        "cad_design"
+      ]
+    },
+    {
+      "id": "latex",
+      "name": "LaTeX",
+      "category": "DocumentProcessing",
+      "description": "Document preparation system",
+      "capabilities": [
+        "text",
+        "documentation",
+        "DocumentRender",
+        "MathematicalTypesetting"
+      ],
+      "cannot_process": ["video", "sound", "image", "3d_models", "code"],
+      "input_formats": ["tex", "bib", "cls", "sty"],
+      "output_formats": ["pdf", "dvi", "ps"],
+      "required_for_tasks": [
+        "academic_paper",
+        "mathematical_documents",
+        "thesis_formatting"
+      ]
+    },
+    {
+      "id": "graphviz",
+      "name": "Graphviz",
+      "category": "DataVisualization",
+      "description": "Graph visualization software",
+      "capabilities": [
+        "image",
+        "data_analysis",
+        "DataVisualize",
+        "GraphGeneration"
+      ],
+      "cannot_process": ["video", "sound", "text", "3d_models"],
+      "input_formats": ["dot", "gv", "graphml"],
+      "output_formats": ["png", "svg", "pdf", "ps"],
+      "required_for_tasks": [
+        "graph_visualization",
+        "network_diagram",
+        "flowchart_generation"
+      ]
+    }
+  ],
+  "capability_tool_mapping": {
+    "video": ["ffmpeg", "blender"],
+    "sound": ["ffmpeg", "sox", "audacity"],
+    "image": ["imagemagick", "blender", "inkscape", "tesseract", "graphviz"],
+    "text": ["pandoc", "tesseract", "latex"],
+    "code": ["git", "python", "nodejs", "openscad"],
+    "3d_models": ["blender", "openscad"],
+    "documentation": ["pandoc", "latex"],
+    "data_analysis": ["python", "graphviz"],
+    "deployment": ["docker"],
+    "version_control": ["git"]
+  },
+  "task_tool_requirements": {
+    "video_processing": {
+      "primary_tools": ["ffmpeg"],
+      "alternative_tools": ["blender"],
+      "optional_tools": []
+    },
+    "3d_rendering": {
+      "primary_tools": ["blender"],
+      "alternative_tools": ["openscad"],
+      "optional_tools": []
+    },
+    "image_processing": {
+      "primary_tools": ["imagemagick"],
+      "alternative_tools": ["inkscape", "blender"],
+      "optional_tools": ["tesseract"]
+    },
+    "audio_processing": {
+      "primary_tools": ["sox", "ffmpeg"],
+      "alternative_tools": ["audacity"],
+      "optional_tools": []
+    },
+    "document_generation": {
+      "primary_tools": ["pandoc"],
+      "alternative_tools": ["latex"],
+      "optional_tools": []
+    },
+    "code_execution": {
+      "primary_tools": ["python", "nodejs"],
+      "alternative_tools": [],
+      "optional_tools": ["docker"]
+    },
+    "data_visualization": {
+      "primary_tools": ["python"],
+      "alternative_tools": ["graphviz"],
+      "optional_tools": []
+    }
+  }
+}
