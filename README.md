@@ -1,81 +1,64 @@
 
-SuperCollider – Definitive Architecture and Operational Documentation
+## Supercollider (Desktop)
 
-1. Introduction
-SuperCollider is a single-user AI orchestration system designed to automate the execution of complex projects across multiple modalities, including:
-Text (articles, reports, code documentation)
+Supercollider is a local-first, multi-agent orchestration desktop app built on Tauri (Rust backend, React/Vite frontend). This README reflects the current, working scope.
 
-
-Code (program generation, edits, testing)
-
-
-Image (illustrations, diagrams, renderings)
-
-
-Audio (soundtracks, narration, effects)
-
-
-Video (composite sequences, animations)
-
-
-Primary objectives:
-Enable the user to submit a high-level project prompt and have it decomposed automatically into granular, executable tasks.
-
-
-Allow parallel, multi-agent execution while respecting dependencies and priorities.
-
-
-Minimize human intervention, requesting input only for approvals, clarifications, or failures that require user decisions.
-
-
-Maximize token efficiency and reduce redundancy in AI calls.
+### Implemented now
+- Dashboard
+  - Quick-create with optional Hasty start (Enter only submits when enabled)
+  - Lazy Queue switch to auto-load saved projects when idle
+  - Toggle to ignore atomic task token limits
+  - Live “Running Queue” via backend `tasks_list_all`
+- Configure Project
+  - Tabs: Workflow, Defaults, Tools
+  - Workflow: drag-reorder tasks; edit, duplicate, delete, expand details
+  - Defaults: apply project-type default workflows to the selected project
+  - Tools: tool discovery/validation UI (Tool Manager)
+- Task Builder
+  - Creates atomic tasks against the active project
+- Persistence
+  - Projects/tasks persisted as JSON; shredder analysis (atoms, types, questions, raw) attached to project and saved
 
 
 
 
-2. System Overview
-SuperCollider is composed of the following functional layers:
-Layer
-Purpose
-Configuration Layer
-Loads credentials, sets defaults, defines agent capabilities and project types
-Input Layer
-Accepts user project prompts and converts them to structured atomic tasks
-Prompt Analysis & Clarification Layer
-Evaluates prompt completeness, generates clarifying questions, may halt downstream queue
-Shredder
-Decomposes project into atomic tasks, determines dependencies and chains
-Task Queue & Scheduler
-Orders tasks, distributes across agents, enforces priorities, token limits, and overrides
-Agent Pool
-Executes tasks based on capabilities (code, text, image, sound, video)
-Context Pool
-Stores outputs and metadata for relevant reinjection into downstream tasks
-Approval Layer
-Allows user approvals or automatic continuation depending on mode
-Error Handling
-Detects failures, decides correction, generates user prompts if needed
-Reintegration/Composer
-Merges multi-modal outputs into final deliverables
-Notification System
-Sends actionable updates to the user
+### Key concepts
+- Project data
+  - `prompt` and `initial_prompt`
+  - Shredder fields: `elaboration`, `shredder_atoms`, `shredder_atomic_task_types`, `shredder_questions`, `shredder_raw`
+  - Hot load/unload: projects reload with prompt and shredder context without recomputing
+- Tasks
+  - Atomic tasks with capability, token limit, dependencies, and optional approval/priority overrides
+- Queue
+  - `queue_start`, `queue_pause`, `queue_resume`, `queue_get_status` wired; scheduler/execution are evolving
 
 
-Iterative Clarification & Goal Validation (cross-cutting)
-Continuously reassesses whether sliced inputs and intermediate outputs are sufficient to reach the user’s stated goal. Generates questions when sufficiency fails, pauses or reprioritizes tasks, and updates the plan.
+### Setup
+1) Prereqs: Rust toolchain; Node 18+; pnpm/yarn/npm
+2) Install frontend deps:
+```
+cd src-ui
+npm install
+```
+3) Dev run (Tauri):
+```
+./setup.bat
+./dev.bat
+```
+4) Browser-only dev (no Tauri):
+- In Vite dev, the app falls back to mock IPC if Tauri isn’t available
+- Or set `window.__DEV_MOCK__ = true` before app init
 
 
-Data flows:
-User submits high-level prompt → Input Layer.
-
-
-2.1. Pre-Shredder Prompt Evaluation
-Purpose:
-Evaluate completeness and specificity of the user prompt before any task shredding occurs. Prevent downstream task generation when critical information is missing.
-
-
-Logic:
-Parse the prompt.
+### Usage
+- Dashboard:
+  - Enter prompt; enable “Hasty start” to submit with Enter; otherwise click Create
+  - Lazy Queue to auto-load saved projects
+  - “Ignore atomic task token limits” toggles backend AppConfig
+- Configure Project:
+  - Workflow tab to curate tasks
+  - Defaults tab to seed tasks by project type
+  - Tools tab to manage tools and view capability matrix
 
 
 Identify missing key dimensions based on project type (e.g., code modules, data sources, modalities, formats).
@@ -616,8 +599,10 @@ Windows notifications (local):
  - Implemented via Tauri notification API (or OS-specific plugin)
 
 
-13. Token & Speed Management
-Per-agent token limits.
+### Data & paths
+- Gitignored generated files:
+  - `project_*.json`, `task_*.json`, `saved_projects/`
+  - Shredder artifacts stored per project and mirrored in project record
 
 
 Daily project token budgets.
@@ -652,8 +637,9 @@ Goal: maximize token efficiency, minimize redundant AI calls.
 
 
 
-15. User Controls
-Project-Level: project type, overall priority, token budget.
+### Configuration flags
+- `ignore_task_token_limits` (Dashboard toggle → AppConfig)
+- Theme, notifications, budget, allowlist configured via UI
 
 
 Task-Level: manual agent selection, priority override, token limit.
@@ -677,18 +663,10 @@ Security & Validation:
 - Timeouts, retries, and circuit breakers
 
 
-16. Data Flow Example
-[User Prompt] 
-   ↓
-[Initial Agent] → [Shredder] → [Task Queue & Scheduler] 
-   ↓                         ↘
-[Agent Pool] ←→ [Context Pool] 
-   ↓
-[Reintegration/Composer] → [Output Artifact]
-   ↓
-[Approval Layer / Notifications]
-   ↓
-[Error Handling → Queue Re-entry if needed]
+### Known limitations
+- Execution engine is evolving; granular progress and pause/resume per task are placeholders
+- Real token accounting depends on provider adapters; fake totals removed
+- Logs/metrics streaming not yet implemented
 
 Represents deterministic flow from user input → multi-agent execution → output.
 
@@ -1513,7 +1491,12 @@ Appendix S: Token and Truncation Strategy
 - Full-context on first failure (silent mode): disable truncation for affected chain when feasible
 
 
-Appendix T: Notification Preferences and Tauri Config Highlights
+### Contributing
+Backend: `src-tauri/src/commands/*`, `services/*`, `models/*`
+Frontend: `src-ui/src/pages/*`, `components/*`, `store/appStore.ts`
+
+### License
+MIT
 notification_prefs.json example:
 {
   "enabled": true,
