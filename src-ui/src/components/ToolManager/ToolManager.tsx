@@ -170,8 +170,11 @@ export const ToolManager: React.FC<ToolManagerProps> = ({
             className="btn btn-secondary"
             onClick={handleManualAdd}
             disabled={isLoading}
+            title={
+              'Register a tool that is not auto-detected. You\'ll enter: id, display name, category, capabilities, input/output formats, and whether it requires GPU or network.'
+            }
           >
-            Add Tool Manually
+            Register Custom Tool…
           </button>
           <div className="flex items-center gap-2">
             <button 
